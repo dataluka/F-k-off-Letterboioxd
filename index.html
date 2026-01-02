@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F**k Off Letterboxd</title>
+    
+    <!-- Tailwind CSS (Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['Lora', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              ink: '#1a1a1a',
+              paper: '#ffffff',
+              subtle: '#f4f4f4'
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'slide-up': 'slideUp 0.8s ease-out forwards',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #ffffff;
+        color: #1a1a1a;
+      }
+      
+      /* Hide scrollbar for splash screen */
+      .no-scroll {
+        overflow: hidden;
+      }
+
+      /* Utility to hide views */
+      .hidden-view {
+        display: none !important;
+      }
+
+      /* Smooth transitions */
+      .page-transition {
+        animation: fadeIn 0.5s ease-out;
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+</head>
+<body class="font-sans selection:bg-black selection:text-white no-scroll">
+
+    <!-- ========================================== -->
+    <!-- SPLASH SCREEN                              -->
+    <!-- ========================================== -->
+    <div id="splash-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-paper cursor-pointer transition-opacity duration-700">
+        <div class="flex flex-col items-center p-6">
+            <div class="relative w-auto max-w-[90vw] md:max-w-lg mb-8 shadow-2xl animate-float rounded-xl overflow-hidden border-4 border-white">
+                <img 
+                  src="https://i.postimg.cc/gc7r1kwG/logo.png" 
+                  alt="The Floating Monkey" 
+                  class="block w-full h-auto object-contain"
+                />
+            </div>
+            <h1 class="text-xl md:text-2xl font-serif italic tracking-widest text-ink/80 text-center animate-pulse">
+                f**k off letterboxd
+            </h1>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- APP CONTAINER (Hidden until splash done)   -->
+    <!-- ========================================== -->
+    <div id="app-container" class="opacity-0 transition-opacity duration-1000">
+        
+        <!-- NAVBAR -->
+        <nav class="fixed top-0 left-0 right-0 z-40 bg-paper/95 backdrop-blur-sm border-b border-gray-100 h-16">
+            <div class="max-w-3xl mx-auto px-6 h-full flex items-center justify-between">
+                <!-- Logo Home Button -->
+                <button onclick="router('feed')" class="flex items-center gap-3 group focus:outline-none">
+                    <div class="h-12 w-auto py-1">
+                        <img 
+                            src="https://i.postimg.cc/gc7r1kwG/logo.png" 
+                            alt="Logo" 
+                            class="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                        />
+                    </div>
+                    <span class="font-serif font-bold text-lg tracking-tight hidden sm:block">
+                        F**k Off Letterboxd
+                    </span>
+                </button>
+
+                <!-- Menu -->
+                <div class="flex items-center gap-6">
+                    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
+                        <button onclick="router('about')" class="hover:text-black transition-colors nav-link" id="nav-about">About Me</button>
+                        <button onclick="router('archive')" class="hover:text-black transition-colors nav-link" id="nav-archive">Archive</button>
+                    </div>
+                    <!-- Search Icon (Decorative for now) -->
+                    <button class="text-gray-500 hover:text-black">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="min-h-screen">
+            
+            <!-- VIEW: FEED -->
+            <section id="view-feed" class="w-full max-w-2xl mx-auto pt-24 pb-20 px-6 page-transition">
+                <div class="flex flex-col space-y-2">
+                    
+                    <!-- ================================================================================== -->
+                    <!-- START OF FEED ITEMS                                                                -->
+                    <!-- Instructions: Copy a 'Feed Item Block' and paste it at the top of this list.       -->
+                    <!-- Ensure the onclick="openPost('post-ID')" matches the ID in the Full Posts section. -->
+                    <!-- ================================================================================== -->
+
+                    <!-- Feed Item Block 1 -->
+                    <article onclick="openPost('post-1')" class="group cursor-pointer py-10 border-b border-gray-100 hover:bg-gray-50/50 transition-colors px-4 -mx-4 rounded-lg">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-3 text-xs font-sans text-gray-400 uppercase tracking-wider">
+                                <span>Oct 24, 2023</span>
+                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                <span>Theory</span>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-serif font-bold text-ink group-hover:text-gray-700 transition-colors leading-tight">
+                                The Death of the Auteur in the Algorithmic Age
+                            </h2>
+                        </div>
+                        <p class="text-base md:text-lg text-gray-600 font-serif leading-relaxed line-clamp-3 mb-3">
+                            When streaming services dictate the pacing of the first five minutes, do directors still have control? A look at how data-driven greenlighting is shifting the visual language of modern cinema.
+                        </p>
+                        <div class="flex items-center text-xs font-sans font-medium text-gray-400 group-hover:text-black transition-colors">
+                            Read more <span class="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+                        </div>
+                    </article>
+
+                    <!-- Feed Item Block 2 -->
+                    <article onclick="openPost('post-2')" class="group cursor-pointer py-10 border-b border-gray-100 hover:bg-gray-50/50 transition-colors px-4 -mx-4 rounded-lg">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-3 text-xs font-sans text-gray-400 uppercase tracking-wider">
+                                <span>Oct 18, 2023</span>
+                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                <span>Cinematography</span>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-serif font-bold text-ink group-hover:text-gray-700 transition-colors leading-tight">
+                                Grain, Noise, and the texture of Memory
+                            </h2>
+                        </div>
+                        <p class="text-base md:text-lg text-gray-600 font-serif leading-relaxed line-clamp-3 mb-3">
+                            Why we keep returning to 16mm simulation in a 4K world. There is an inherent nostalgia in imperfection that digital crispness simply cannot replicate.
+                        </p>
+                        <div class="flex items-center text-xs font-sans font-medium text-gray-400 group-hover:text-black transition-colors">
+                            Read more <span class="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+                        </div>
+                    </article>
+
+                    <!-- Feed Item Block 3 -->
+                    <article onclick="openPost('post-3')" class="group cursor-pointer py-10 border-b border-gray-100 hover:bg-gray-50/50 transition-colors px-4 -mx-4 rounded-lg">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-3 text-xs font-sans text-gray-400 uppercase tracking-wider">
+                                <span>Oct 10, 2023</span>
+                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                <span>Reviews</span>
+                            </div>
+                            <h2 class="text-2xl md:text-3xl font-serif font-bold text-ink group-hover:text-gray-700 transition-colors leading-tight">
+                                Review: 'The Zone of Interest' and the Horror of the Mundane
+                            </h2>
+                        </div>
+                        <p class="text-base md:text-lg text-gray-600 font-serif leading-relaxed line-clamp-3 mb-3">
+                            Glazer's latest isn't just a film about history; it's a mirror held up to our own compartmentalization of suffering. Sound design takes center stage in this harrowing masterpiece.
+                        </p>
+                        <div class="flex items-center text-xs font-sans font-medium text-gray-400 group-hover:text-black transition-colors">
+                            Read more <span class="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+                        </div>
+                    </article>
+
+                    <!-- COPY NEW FEED ITEM HERE -->
+                    
+                </div>
+                
+                <div class="mt-16 text-center">
+                    <button class="px-6 py-2 border border-gray-200 rounded-full text-sm font-sans text-gray-500 hover:border-black hover:text-black transition-all">
+                        Load More
+                    </button>
+                </div>
+            </section>
+
+            <!-- VIEW: ABOUT -->
+            <section id="view-about" class="w-full max-w-2xl mx-auto pt-32 pb-20 px-6 hidden-view page-transition">
+                <div class="prose prose-lg prose-stone mx-auto">
+                    <div class="flex justify-center mb-10">
+                       <img 
+                          src="https://i.postimg.cc/gc7r1kwG/logo.png" 
+                          alt="About Me" 
+                          class="w-auto max-w-full md:max-w-md h-auto rounded-lg shadow-md object-contain"
+                        />
+                    </div>
+                    
+                    <h1 class="font-serif text-3xl md:text-4xl text-center mb-8">About F**k Off Letterboxd</h1>
+                    
+                    <div class="font-serif text-lg leading-loose text-gray-700 space-y-6 text-justify">
+                      <p>
+                        Welcome to the digital attic of a cinema obsessive. This is not a place for breaking news, box office analysis, or hot takes generated for engagement. 
+                      </p>
+                      <p>
+                        Instead, <em>F**k Off Letterboxd</em> is an archive of thoughts on the visual medium—from the texture of 16mm grain to the philosophical implications of slow cinema. The name reflects a rejection of the star-rating gamification of film culture, untethered, slightly absurd, but earnestly reaching for something higher.
+                      </p>
+                      <p>
+                        I am a filmmaker and writer based in New York. I believe movies are better than they used to be, but the way we watch them is worse.
+                      </p>
+                    </div>
+                    
+                    <div class="mt-12 pt-8 border-t border-gray-200 text-center font-sans text-sm text-gray-500">
+                      <p>Contact: hello@fuckoffletterboxd.com</p>
+                      <p class="mt-2">© 2024 F**k Off Letterboxd. All rights reserved.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: ARCHIVE (Placeholder) -->
+            <section id="view-archive" class="w-full max-w-2xl mx-auto pt-32 pb-20 px-6 hidden-view page-transition">
+                <h1 class="font-serif text-3xl mb-8">Archive</h1>
+                <p class="font-serif text-gray-600">Complete archive coming soon...</p>
+                <button onclick="router('feed')" class="mt-4 text-sm underline">Back to Feed</button>
+            </section>
+
+            <!-- VIEW: SINGLE POST CONTAINER -->
+            <!-- This section is dynamically populated by JS when a post is clicked -->
+            <section id="view-post" class="w-full max-w-2xl mx-auto pt-28 pb-24 px-6 md:px-8 hidden-view page-transition">
+                <!-- Back Button -->
+                <button 
+                  onclick="router('feed')"
+                  class="group flex items-center text-sm font-sans font-medium text-gray-400 hover:text-black transition-colors mb-12 tracking-wide"
+                >
+                  <i data-lucide="arrow-left" class="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1"></i>
+                  BACK TO ARCHIVE
+                </button>
+
+                <!-- Post Content gets injected here -->
+                <div id="dynamic-post-content"></div>
+
+                <!-- Footer / Sharing -->
+                <footer class="border-t border-gray-200 pt-10 mt-12">
+                  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <div class="flex items-center gap-3 text-sm font-sans font-medium text-gray-500 uppercase tracking-wider">
+                      <i data-lucide="share-2" class="w-4 h-4"></i>
+                      <span>Share this article</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <button class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-gray-500 bg-white hover:bg-black hover:text-white transition-all">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </button>
+                        <button class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-gray-500 bg-white hover:bg-[#0077b5] hover:text-white transition-all">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </button>
+                        <button class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-gray-500 bg-white hover:bg-gray-700 hover:text-white transition-all">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                  </div>
+                </footer>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ================================================================================== -->
+    <!-- HIDDEN POSTS STORAGE                                                               -->
+    <!-- This is where the full content of the posts lives.                                 -->
+    <!-- The JS copies the content from here to the main view when clicked.                 -->
+    <!-- ================================================================================== -->
+    <div id="posts-storage" style="display: none;">
+
+        <!-- FULL POST 1 -->
+        <div id="post-1">
+            <header class="mb-14">
+                <div class="flex flex-wrap items-center gap-3 text-xs font-sans font-semibold text-gray-400 uppercase tracking-widest mb-6">
+                  <span>Oct 24, 2023</span>
+                  <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span class="text-black">Theory</span>
+                  <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span>6 min read</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
+                  The Death of the Auteur in the Algorithmic Age
+                </h1>
+                <div class="h-1 w-24 bg-black"></div>
+            </header>
+            <article class="mb-20 font-serif text-lg md:text-xl text-gray-800 leading-[1.8] md:leading-[1.9]">
+                <p class="mb-8 first-letter:text-6xl first-letter:font-bold first-letter:float-left first-letter:mr-4 first-letter:mt-[-6px] first-letter:text-black">
+                    Cinema is not merely a sequence of moving images; it is a temporal architecture. 
+                    When we discuss the framework of this particular piece, we must consider the negative space—the silence between the dialogue, the stillness between the action. 
+                    It is in these voids that the true narrative breathes.
+                </p>
+                <p class="mb-8">
+                    Consider the lighting in the third act. It eschews the typical three-point setup for something far more naturalistic, almost hostile in its refusal to beautify the subject. 
+                    This is not an accident. It is a declaration of intent. The director is forcing us to look not at the performance, but at the reality it simulates.
+                </p>
+                <blockquote class="border-l-4 border-black pl-8 py-4 my-12 text-2xl md:text-3xl italic text-black bg-gray-50 rounded-r-lg">
+                    "To capture the truth, one must first dismantle the expectation of entertainment."
+                </blockquote>
+                <p class="mb-8">
+                    In conclusion, what we are witnessing here is a dismantling of the traditional hero's journey. 
+                    There is no return with the elixir, only a deeper descent into the ambiguity of the human condition. 
+                    It is uncomfortable, it is grainy, and it is utterly essential viewing.
+                </p>
+            </article>
+        </div>
+
+        <!-- FULL POST 2 -->
+        <div id="post-2">
+            <header class="mb-14">
+                <div class="flex flex-wrap items-center gap-3 text-xs font-sans font-semibold text-gray-400 uppercase tracking-widest mb-6">
+                  <span>Oct 18, 2023</span>
+                  <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span class="text-black">Cinematography</span>
+                  <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span>4 min read</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
+                    Grain, Noise, and the texture of Memory
+                </h1>
+                <div class="h-1 w-24 bg-black"></div>
+            </header>
+            <article class="mb-20 font-serif text-lg md:text-xl text-gray-800 leading-[1.8] md:leading-[1.9]">
+                <p class="mb-8">
+                    Why do we crave the imperfection of film grain in a world capable of infinite resolution? 
+                    Perhaps because clarity is not how we remember. Memory is fuzzy, high-contrast, and prone to artifacts.
+                </p>
+                <p class="mb-8">
+                    The digital image is too clean. It lacks the chaos of organic chemistry. When we watch 16mm footage, we are watching a physical struggle between light and emulsion.
+                    This struggle adds a layer of mortality to the image that pixels simply cannot convey.
+                </p>
+            </article>
+        </div>
+
+        <!-- FULL POST 3 -->
+        <div id="post-3">
+             <header class="mb-14">
+                <div class="flex flex-wrap items-center gap-3 text-xs font-sans font-semibold text-gray-400 uppercase tracking-widest mb-6">
+                  <span>Oct 10, 2023</span>
+                  <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span class="text-black">Reviews</span>
+                  <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span>8 min read</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
+                    Review: 'The Zone of Interest' and the Horror of the Mundane
+                </h1>
+                <div class="h-1 w-24 bg-black"></div>
+            </header>
+            <article class="mb-20 font-serif text-lg md:text-xl text-gray-800 leading-[1.8] md:leading-[1.9]">
+                <p class="mb-8">
+                   Glazer's latest isn't just a film about history; it's a mirror held up to our own compartmentalization of suffering.
+                   The horror is not on screen. It is over the garden wall. It is in the sound design—the low rumble of industry that never ceases.
+                </p>
+            </article>
+        </div>
+
+        <!-- PASTE NEW FULL POST CONTENT HERE -->
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // SPLASH SCREEN LOGIC
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            const app = document.getElementById('app-container');
+            const body = document.body;
+
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                app.style.opacity = '1';
+                body.classList.remove('no-scroll');
+                
+                // Remove splash from DOM after fade to prevent clicks
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 700);
+            }, 3000);
+        });
+
+        // ROUTING LOGIC
+        function router(viewName) {
+            // Hide all views
+            const views = ['view-feed', 'view-about', 'view-archive', 'view-post'];
+            views.forEach(id => {
+                document.getElementById(id).classList.add('hidden-view');
+            });
+
+            // Show requested view
+            const activeView = document.getElementById(`view-${viewName}`);
+            if (activeView) {
+                activeView.classList.remove('hidden-view');
+                // Reset scroll
+                window.scrollTo(0, 0);
+            }
+
+            // Update Nav styling
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('text-black', 'underline', 'underline-offset-4');
+                link.classList.add('text-gray-500');
+            });
+
+            const activeLink = document.getElementById(`nav-${viewName}`);
+            if (activeLink) {
+                activeLink.classList.remove('text-gray-500');
+                activeLink.classList.add('text-black', 'underline', 'underline-offset-4');
+            }
+        }
+
+        // POST OPENING LOGIC
+        function openPost(postId) {
+            const source = document.getElementById(postId);
+            const target = document.getElementById('dynamic-post-content');
+
+            if (source && target) {
+                // Copy content
+                target.innerHTML = source.innerHTML;
+                // Switch view
+                router('post');
+            } else {
+                console.error("Post not found:", postId);
+            }
+        }
+
+        // Initialize default view
+        // (Handled by initial HTML classes, but good to be explicit if needed)
+    </script>
+</body>
+</html>
