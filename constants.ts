@@ -10,6 +10,6 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt: "The most useless film seen in Venice after Laila of Haifa",
     date: "Oct 24, 2023",
     readTime: "6 min read",
-    category: "Theory"
+    category: "Movies"
   },
   
